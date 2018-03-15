@@ -5,6 +5,7 @@
 
 #include <cctype>
 #include <sstream>
+#include <string>
 
 #include <CommonAPI/Address.hpp>
 #include <CommonAPI/Logger.hpp>

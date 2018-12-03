@@ -94,6 +94,10 @@ public:
     virtual ~ClientId() { }
     virtual bool operator==(ClientId& clientIdToCompare) = 0;
     virtual std::size_t hashCode() = 0;
+
+	
+public:
+	uint32_t ErrorCode;
 };
 
 template <typename ... Args_>

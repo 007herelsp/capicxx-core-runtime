@@ -93,8 +93,67 @@ LoggerImpl::init(bool _useConsole, const std::string &_fileName, bool _useDlt, c
 #endif
 }
 
+static const char *MODE_TAG = "commonapi";
+
+#ifdef __ANDROID__
+#include <android/log.h>
+#define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, MODE_TAG, __VA_ARGS__)
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, MODE_TAG, __VA_ARGS__)
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, MODE_TAG, __VA_ARGS__)
+#define LOGW(...) __android_log_print(ANDROID_LOG_WARN, MODE_TAG, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, MODE_TAG, __VA_ARGS__)
+#else
+#define LOGV(...)
+#define LOGD(...)
+#define LOGI(...)
+#define LOGW(...)
+#define LOGE(...)
+#endif
+
+
 void
 LoggerImpl::doLog(Level _level, const std::string &_message) {
+
+#ifdef __ANDROID__
+
+switch (_level)
+	{
+	  case Level::LL_FATAL:
+		   LOGE("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  case Level::LL_ERROR:
+		   LOGE("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  case Level::LL_WARNING:
+		  LOGW("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  case Level::LL_INFO:
+		   LOGI("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  case Level::LL_DEBUG:
+		  LOGD("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  case Level::LL_VERBOSE:
+		   LOGV("%s,%s",__TIME__,_message.c_str());
+
+	  break;
+	  default:
+		 LOGV("%s",_message.c_str());
+
+	  break;
+	
+	}
+
+return;
+#endif	
+
+
+
 #ifdef USE_CONSOLE
   if (useConsole_) {
     std::lock_guard<std::mutex> itsLock(mutex_);

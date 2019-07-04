@@ -64,6 +64,7 @@ public:
 #endif
     }
 
+
     template<typename... LogEntries_>
     COMMONAPI_EXPORT static void debug(LogEntries_... _entries) {
 #if COMMONAPI_LOGLEVEL >= COMMONAPI_LOGLEVEL_DEBUG

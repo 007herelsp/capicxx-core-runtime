@@ -26,6 +26,12 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(DL_LIBRARY "dl")
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Android")
+set(OS "Android")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -llog")
+endif()
+
 ##############################################################################
 
 # define standard installation path in case CMAKE_INSTALL_PREFIX is not set
@@ -67,7 +73,7 @@ else()
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
-OPTION(USE_FILE "Set to OFF to disable file logging" OFF )
+OPTION(USE_FILE "Set to OFF to disable file logging" ON )
 message(STATUS "USE_FILE is set to value: ${USE_FILE}")
 
 OPTION(USE_CONSOLE "Set to OFF to disable console logging" OFF )

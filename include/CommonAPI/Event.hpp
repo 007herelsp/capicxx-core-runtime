@@ -110,7 +110,7 @@ typename Event<Arguments_...>::Subscription Event<Arguments_...>::subscribe(List
     subscriptionMutex_.lock();
     subscription = nextSubscription_++;
     isFirstListener = (0 == pendingSubscriptions_.size()) && (pendingUnsubscriptions_.size() == subscriptions_.size());
-    listener = std::move(listener);
+    //listener = std::move(listener);
     listeners = std::make_tuple(listener, std::move(errorListener));
     pendingSubscriptions_[subscription] = std::move(listeners);
     subscriptionMutex_.unlock();

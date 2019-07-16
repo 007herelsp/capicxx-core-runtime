@@ -73,11 +73,12 @@ else()
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
-OPTION(USE_FILE "Set to OFF to disable file logging" ON )
+
+OPTION(USE_FILE "Set to OFF to disable file logging" OFF )
 message(STATUS "USE_FILE is set to value: ${USE_FILE}")
 
-OPTION(USE_CONSOLE "Set to OFF to disable console logging" OFF )
-message(STATUS "USE_CONSOLE is set to value: ${USE_CONSOLE}")
+OPTION(USE_CONSOLE "Set to OFF to disable console logging" ON )
+message(STATUS "xxxxxxxxxxx USE_CONSOLE is set to value: ${USE_CONSOLE}")
 
 # Make relative paths absolute (needed later on)
 foreach(p LIB INCLUDE CMAKE)

@@ -152,9 +152,11 @@ message("__androidLinkOptions:${__androidLinkOptions}")
 
 CONFIGURE_FILE(commonapi.spec.in commonapi.spec)
 
+# export var for PARENT_SCOPE
+set(COMMONAPI_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include/" PARENT_SCOPE)
+
 ##############################################################################
 # installing files
-
 # for installation of CommonAPI header files
 file (GLOB_RECURSE CommonAPI_INCLUDE_INSTALL_FILES "include/CommonAPI/*.hpp")
 list (SORT CommonAPI_INCLUDE_INSTALL_FILES)
@@ -219,6 +221,9 @@ add_custom_target(dist
    COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR} && git archive --format=tar.gz ${COMPONENT_VERSION} -o CommonAPI${COMPONENT_VERSION}.tar.gz
 )
 
+IF(ENABLE_BUILD_DOC)
+
+
 ##############################################################################
 # build documentation
 FIND_PACKAGE(Doxygen)
@@ -263,6 +268,7 @@ else()
     endif()
 endif()
 
+endif()
 ##############################################################################
 # create pkg-config file
 if(NOT WIN32 AND PKG_CONFIG_FOUND)
